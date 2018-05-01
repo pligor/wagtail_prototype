@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>List Projects</title>
+</head>
+<body>
+
+(here note that object_list is the variable that is passed automagically)<br/>
+(page of 85/104 in pdf to see how to extend the list view)
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Client Name</th>
+  </tr>
+
+  {% for project in object_list %}
+  <tr>
+    <td>{{ project.title }}</td>
+    <td>{{ project.description }}</td>
+    <td>{{ project.client_name }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>

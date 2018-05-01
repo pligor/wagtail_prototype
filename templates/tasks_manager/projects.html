@@ -1,0 +1,30 @@
+{% extends 'tasks_manager/base.html' %}
+
+{% block title_html %}Projects{% endblock %}
+
+{% block h1 %}Listing all projects alitarades{% endblock %}
+
+{% block article_content %}
+
+{% if projects|length > 0 %}
+<table>
+  <thead>
+  <tr>
+    <td>ID</td>
+    <td>Title</td>
+  </tr>
+  </thead>
+  <tbody>
+  {% for project in projects %}
+    <tr>
+      <td>{{ project.id }}</td>
+      <td>{{ project.title }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <span>No projects!</span>
+{% endif %}
+
+{% endblock %}

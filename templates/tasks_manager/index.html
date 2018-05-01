@@ -1,0 +1,60 @@
+{% extends 'tasks_manager/base.html' %}
+<!--TODO We can also create super templates that extend themselves to create more complex architectures. ???-->
+
+
+{% block title_html %}
+Yeah Titled
+{% endblock %}
+
+{% block h1 %}
+<h1>Hello World</h1>
+{% endblock %}
+
+{% block article_content %}
+<article>
+  First Django app! (not really)<br/>
+  ola ta grammata mikra: {{str_var | lower}}<br/>
+  ola ta grammata kefalaia: {{str_var | upper}}<br/>
+  ola ta grammata apeiraxta: {{str_var}}<br/>
+  ola ta grammata omorfa me capfirst: {{str_var | capfirst}}<br/>
+  if you wanna treat it as an html trust it with the safe word: {{str_val | safe}}<br/>
+  <span>
+    {% if years < 10 %}
+      You are a child
+    {% elif 10 <= years and years <= 18 %}
+      You are a teenager
+    {% else %}
+      Unfortunately you are an adult
+    {% endif %}
+  </span>
+  <br/>
+
+  <ul>
+    {% for city in capitals %}
+    <li>{{city}}</li>
+    {% endfor %}
+  </ul>
+
+  <br/>
+
+  <!-- -->
+  We need to have {{ dog_no }} dog{{ dog_no|pluralize:"gy,gies" }}
+</article>
+
+<h3>This is how you are master, convert all the new lines in proper html:</h3>
+<article>
+  {{ my_paragraphs | linebreaks }}
+</article>
+
+<p>
+  Gia opoion exei poly megalo onoma krata mono ta prwta 10 grammata
+  {{ "Geo Pligoropoulos" | truncatechars:10 }}
+</p>
+
+<br/>
+
+<a href="{% url 'conn' %}">Connection</a>
+{% endblock %}
+
+<!--When you need to use parameterized URLs, you must use the following
+syntax to integrate the parameters to the URL: url "url_name" param1, param2-->

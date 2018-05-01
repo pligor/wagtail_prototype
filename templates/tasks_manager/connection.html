@@ -1,0 +1,23 @@
+{% extends 'tasks_manager/base.html' %}
+{% block article_content %}
+
+{% if user.is_authenticated %}
+<!-- the above line checks if the user is connected, user is ALWAYS offered in views apparently -->
+<h1>You are connected. Congrats</h1>
+<p>Your email: {{ user.email }}</p>
+
+{% else %}
+<h1>Connection</h1>
+<form method="post" action="{% url 'conn' %}">
+  {% csrf_token %}
+
+  <table>
+    {{ form.as_table }}
+  </table>
+
+  <input type="submit" class="button" value="Connection"/>
+</form>
+
+{% endif %}
+
+{% endblock %}

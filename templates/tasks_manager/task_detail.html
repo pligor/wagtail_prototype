@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Detail</title>
+</head>
+<body>
+
+(here notice that we have as the element the "object")<br/>
+(page of 88/107 in pdf to see how to extend the detail view)
+
+<h4>{{ object.title }}</h4>
+<table>
+  <tr>
+    <td>Project: {{ object.project }}</td>
+    <td>Developer: {{ object.app_user }}</td>
+  </tr>
+  <tr>
+    <td>Importance: {{ object.importance }}</td>
+    <td>Time elapsed: {{ object.time_elapsed }}</td>
+  </tr>
+</table>
+
+<p>{{ object.description }}</p>
+
+</body>
+</html>

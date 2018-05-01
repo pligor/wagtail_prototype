@@ -1,0 +1,27 @@
+{% extends "tasks_manager/base.html" %}
+
+{% block title_html %}
+Create Developer v2
+{% endblock %}
+
+{% block h1 %}
+Create Dev with Django Forms
+{% endblock %}
+
+{% block article_content %}
+<form method="post" action="{% url 'create_developer_django_forms' %}">
+  {% csrf_token %}
+
+  <table>
+    {{ form.as_table }}
+  </table>
+  <!--
+  Alternatives for rendering forms:
+    as_table: This displays fields in the <tr> <td> tags
+    as_ul: This displays the form fields in the <li> tags
+    as_p: : This displays the form fields in the <p> tags
+   -->
+
+  <input type="submit" value="Create"/>
+</form>
+{% endblock %}

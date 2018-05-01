@@ -1,0 +1,29 @@
+{% extends "tasks_manager/base.html" %}
+
+{% block title_html %}
+Create Proj
+{% endblock %}
+
+{% block h1 %}
+Create Project with Class Based View
+{% endblock %}
+
+{% block article_content %}
+(note that you still have the "form" as the variable which is now automagically passed to you)<br/>
+(also action does not matter here)
+<form method="post" action="">
+  {% csrf_token %}
+
+  <table>
+    {{ form.as_table }}
+  </table>
+  <!--
+  Alternatives for rendering forms:
+    as_table: This displays fields in the <tr> <td> tags
+    as_ul: This displays the form fields in the <li> tags
+    as_p: : This displays the form fields in the <p> tags
+   -->
+
+  <input type="submit" value="Create Project"/>
+</form>
+{% endblock %}
