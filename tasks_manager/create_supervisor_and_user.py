@@ -4,7 +4,7 @@ from .models import Supervisor
 from django.urls import reverse
 from django import forms
 from django.contrib.auth.models import User
-
+from django.contrib.auth.hashers import make_password
 
 class Form_supervisor(forms.Form):
     name = forms.CharField(label="name", max_length=30)
@@ -34,7 +34,7 @@ def create_supervisor_and_user(request):
         if form.is_valid():
             new_user = User(
                 username=form.cleaned_data['name'],
-                password=form.cleaned_data['password'],
+                password=make_password(form.cleaned_data['password']),
                 first_name=form.cleaned_data['name'],
                 last_name=form.cleaned_data['name'],
                 email=form.cleaned_data['email'],

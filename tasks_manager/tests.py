@@ -34,3 +34,4 @@ class TestBasic(TestCase):
     def test_silly(self):
         project = Project.objects.get(title='Title')
         self.assertEqual(project.description, 'my descr')
+
