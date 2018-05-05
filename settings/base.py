@@ -162,3 +162,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "work_manager", "media")
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, "tmp")
+
+
+#Use environment variable: export DJANGO_SETTINGS_MODULE=....

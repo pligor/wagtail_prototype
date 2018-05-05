@@ -15,16 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from .index import home
+from rest_framework import routers, serializers, viewsets
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .views import UserViewSet
 
-admin.autodiscover()
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)  # this is to include these views for the users
 
 urlpatterns = [
-    url(r'^$', home),
-    url(r'^index/$', home),
-    url(r'^admin/', admin.site.urls),
-    url(r'^tasks_mngr/', include('tasks_manager.urls')),
-    url(r'^restapp/', include('restapp.urls')),
+    url(r'^', include(router.urls)),  # this is to include all the router.urls
+
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
 """
