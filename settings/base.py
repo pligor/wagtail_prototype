@@ -158,6 +158,7 @@ sys.path = ["", EXTERNAL_APPS_PATH, EXTERNAL_LIBS_PATH] + sys.path
 # should always be checked first before checking other Python paths.
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "work_manager", "media")
+MEDIA_URL = '/media/'
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 

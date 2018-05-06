@@ -1,0 +1,30 @@
+{% extends "wagtailapp/base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+
+  <div>
+    <p>images:</p>
+    {% for cur_img_obj in page.gallery_images.all %}
+      <div>
+        {% image cur_img_obj.image fill-150x150 %}
+      <span>{{ cur_img_obj.caption }}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  <p class="meta">{{ page.date }}</p>
+
+  <div class="intro">{{ page.intro }}</div>
+
+  {{ page.body|richtext }}
+
+  {# this is how you access the parent of the page and get its url  #}
+  <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
+{% endblock %}

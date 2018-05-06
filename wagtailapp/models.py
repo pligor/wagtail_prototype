@@ -2,33 +2,74 @@ from django.db import models
 
 # this is a Blog Page Model
 from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
 from wagtail.search import index
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel, InlinePanel
 from modelcluster.fields import ParentalKey
-
-# from .models.my_home_page import *
-from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
 
-class HomePage(Page): #this was already defined ??? and now we are making it better
-    """By default, it will look for a template filename formed from the app and model name,
-    separating capital letters with underscores (e.g. HomePage within the ‘home’ app becomes home/home_page.html)"""
-    body = RichTextField()
+from .models_module.home_page import *
 
-    content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full")
-    ]
 
-class BlogIndexPage(Page): #this is the index page for our blog
-    intro = RichTextField(blank=True) #this is a rich text field
+class BlogIndexPage(Page):  # this is the index page for our blog
+    intro = RichTextField(blank=True)  # this is a rich text field
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
 
+    # HOW TO NAVIGATE THE HIERARCHY
+    # Given a page object 'somepage':
+    # MyModel.objects.descendant_of(somepage)
+    # child_of(page) / not_child_of(somepage)
+    # ancestor_of(somepage) / not_ancestor_of(somepage)
+    # parent_of(somepage) / not_parent_of(somepage)
+    # sibling_of(somepage) / not_sibling_of(somepage)
+    # # ... and ...
+    # somepage.get_children()
+    # somepage.get_ancestors()
+    # somepage.get_descendants()
+    # somepage.get_siblings()
+
+    def get_published_blogposts(self):
+        return self.get_children().live().order_by('-first_published_at')
+
+    # Overriding context and passing more variables in the context of the page
+    # def get_context(self, request):
+    #     # Update context to include only published posts, ordered by reverse-chron
+    #     context = super().get_context(request)
+    #     blogpages = self.get_children().live().order_by('-first_published_at')
+    #     context['blogpages'] = blogpages
+    #     return context
+    subpage_types = ['wagtailapp.BlogPage']
+
+
+class BlogPage(Page):
+    date = models.DateField("Date this blogpost was posted")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=False)
+
+    # We are making both intro and body to be searchable
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body')
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('date'),
+        FieldPanel('intro'),
+        FieldPanel('body', classname="full"),
+
+        # this is the reference from the parental key, So you are bringing the panel in here!
+        InlinePanel("gallery_images", label="Gallery Images")
+    ]
+
+    # Control where this page type may be used in the website
+    parent_page_types = ['wagtailapp.BlogIndexPage']  # enforce only blog index page to be the parent of this page
+    # subpage_types = []
+
+
+from .models_module.blog_page_gallery_image import *
 
 # class BlogPage(Page):  # this is like a Django Model
 #
