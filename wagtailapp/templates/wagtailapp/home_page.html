@@ -1,0 +1,15 @@
+{% extends "wagtailapp/base.html" %}
+{#By default, it will look for a template filename formed from the app and model name, separating capital letters with underscores (e.g. HomePage within the ‘home’ app becomes home/home_page.html)#}
+
+{% load wagtailcore_tags %}
+{#Django will throw a TemplateSyntaxError if the tags aren’t loaded.#}
+
+{% block title_html %}{{ page.title }}{% endblock %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block h1 %}{{ page.title }}{% endblock %}
+
+{% block content %}
+  {{ page.body | richtext }}
+{% endblock %}

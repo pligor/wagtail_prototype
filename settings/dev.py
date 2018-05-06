@@ -1,12 +1,31 @@
 from .base import *
+# try:
+from .settings_wagtail import *
+
+# except Exception as ee:
+#     pass
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOCAL_SETTINGS_LOADED = False
 
-INSTALLED_APPS.extend([
-    'rest_framework',
-])
+INSTALLED_APPS = ['rest_framework'] + INSTALLED_APPS
+INSTALLED_APPS = MyWagtailConfig.INSTALLED_APPS + INSTALLED_APPS
+INSTALLED_APPS = ['wagtailapp'] + INSTALLED_APPS
+
+# print(INSTALLED_APPS)
+
+MIDDLEWARE.extend(MyWagtailConfig.MIDDLEWARE)
+
+try:
+    STATIC_ROOT
+except NameError:
+    raise Exception("static root is necessary to be configured for wagtail")
+
+try:
+    MEDIA_ROOT
+except NameError:
+    raise Exception("media root is necessary to be configured for wagtail")
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

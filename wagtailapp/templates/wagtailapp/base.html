@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+  <title>
+    {% block title_html %}{% endblock %}
+  </title>
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+<h1>
+  My First Wagtail App - {% block h1 %}{% endblock %}
+</h1>
+
+<article>
+  {% block content %}{% endblock %}
+</article>
+</body>
+
+</html>

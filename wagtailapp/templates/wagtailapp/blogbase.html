@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<body class="{% block body_class %}{% endblock %}">
+
+<article>
+  {% block content %}{% endblock %}
+</article>
+</body>
+
+</html>
