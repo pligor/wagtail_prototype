@@ -22,14 +22,13 @@ from django.conf.urls.static import static
 admin.autodiscover()
 
 urlpatterns = [
-                  url(r'^$', home),
-                  url(r'^index/$', home),
-                  url(r'^admin/', admin.site.urls),
-                  url(r'^tasks_mngr/', include('tasks_manager.urls')),
-                  url(r'^restapp/', include('restapp.urls')),
-                  url(r'^wagtailapp/', include('wagtailapp.urls')),
-              ] + \
-              static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^$', home),
+    url(r'^index/$', home),
+    url(r'^admin/', admin.site.urls),
+    url(r'^tasks_mngr/', include('tasks_manager.urls')),
+    url(r'^restapp/', include('restapp.urls')),
+    url(r'^wagtailapp/', include('wagtailapp.urls')),
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # THIS LAST LINE is a way to add the media (typically uploaded files) to be served as static
 
 """

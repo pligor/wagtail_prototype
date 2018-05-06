@@ -1,7 +1,8 @@
-#Public
+# Public
 WAGTAIL_SITE_NAME = "This is yet another Wagtail Site or not?"
 
-#Private
+
+# Private
 class MyWagtailConfig(object):
     INSTALLED_APPS = [
         'wagtail.contrib.forms',
@@ -24,3 +25,12 @@ class MyWagtailConfig(object):
         'wagtail.core.middleware.SiteMiddleware',
         'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     ]
+
+    #WRONG WAY
+    # @staticmethod
+    # def STATICFILES_DIRS(BASE_DIR):
+    #     import os
+    #     return [
+    #         # this is to include our own custom folder to the static directories
+    #         os.path.join(BASE_DIR, "work_manager", "media")
+    #     ]

@@ -27,6 +27,9 @@ try:
 except NameError:
     raise Exception("media root is necessary to be configured for wagtail")
 
+# STATICFILES_DIRS = MyWagtailConfig.STATICFILES_DIRS(BASE_DIR=BASE_DIR) + STATICFILES_DIRS
+# print(STATICFILES_DIRS)
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         # these permissions are followed one layer at a time as you see the order here
