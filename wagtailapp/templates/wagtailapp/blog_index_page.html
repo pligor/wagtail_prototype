@@ -12,12 +12,11 @@
   {#    {% for blogpost_instance in page.get_children.live %}#}
   {#    {% for blogpost_instance in page.get_children %}#}
   {#  {% debug %}#}
-  {% for blogpost_instance in page.specific.get_published_blogposts %}
+  {% for blogpost_instance in page.specific.get_published_rev_order %}
     {% with blogpost=blogpost_instance.specific %}
       {#    <h2><a href="{% pageurl blogpost %}">{{ blogpost.title }}</a></h2>#}
       <h2><a href="{{ blogpost.url }}">{{ blogpost.title }}</a></h2>
       {#      the two lines above are identical#}
-
       {{ blogpost.intro }}
       {{ blogpost.body|richtext }}
     {% endwith %}

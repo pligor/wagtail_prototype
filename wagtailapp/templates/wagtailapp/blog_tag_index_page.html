@@ -1,0 +1,36 @@
+{% extends "wagtailapp/blogbase.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+    {% with counting=request.GET.tag.count %}
+
+{#        {% if counting > 10 %} {# this actually only checks the length of the tag #}
+        {% if request.GET.tag|first|length_is:1 %}
+
+            <h4>Showing all pages which are tagged with tag: {{ request.GET.tag }}</h4>
+        {% endif %}
+
+    {% endwith %}
+
+
+    {% for blogpage in tagged_blogpages %}
+
+        <p>
+            <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong>
+            <br/>
+{#        We’re calling the built-in latest_revision_created_at field on the Page model - handy to know this is always available.#}
+            <small>Revised: {{ blogpage.latest_revision_created_at }}</small>
+            <br/>
+            {% if blogpage.author %}
+                <p> By {{ blogpage.author.profile }}</p>
+            {% endif %}
+        </p>
+
+    {% empty %}
+        No pages found that match the current tag
+    {% endfor %}
+
+
+{% endblock %}
