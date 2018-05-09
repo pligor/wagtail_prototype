@@ -19,13 +19,14 @@ class BlogPageTag(TaggedItemBase):
         related_name="tagged_items",
     )
 
-
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=False)
     categories = ParentalManyToManyField(to=BlogCategory, blank=True)
+
+    author = models.CharField(max_length=250, default="(no author)")
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
@@ -57,6 +58,17 @@ class BlogPage(Page):
     def get_by_tag(tag):
         return BlogPage.objects.filter(tags__name=tag)
 
+    # def save(self, *args, **kwargs):
+    #     print(kwargs.keys())
+    #     super().save(*args, **kwargs)
+    
+
+    def get_context(self, request, *args, **kwargs):
+        return super().get_context(request, *args, **kwargs)
+
+
+
+
 
 class BlogPageGalleryImage(Orderable):
     # A ParentalKey works similarly to a ForeignKey, but also defines BlogPageGalleryImage
@@ -72,3 +84,4 @@ class BlogPageGalleryImage(Orderable):
         ImageChooserPanel('image'),
         FieldPanel('caption'),
     ]
+

@@ -49,6 +49,12 @@
 
     {{ page.body|richtext }}
 
+    <p>
+        {% if page.author %}
+            <p> By {{ page.author }}</p>
+        {% endif %}
+    </p>
+
     {# this is how you access the parent of the page and get its url  #}
     <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
 
