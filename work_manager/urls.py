@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^$', home),
     url(r'^index/$', home),
     url(r'^admin/', admin.site.urls),
-    url(r'^tasks_mngr/', include('tasks_manager.urls')),
+    url(r'^tasks_mngr/', include('tasks_manager.urls', namespace="tasks_manager")),
     url(r'^restapp/', include('restapp.urls')),
     url(r'^wagtailapp/', include('wagtailapp.urls')),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

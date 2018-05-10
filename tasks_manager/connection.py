@@ -53,8 +53,8 @@ def connection(request):
                 else:
                     response = redirect(to=next_url)
 
-                print("we are saving the token: {}".format(user.token))
-                response.set_cookie(key=settings.KEYSTONE_TOKEN_KEY, value=user.token)
+                print("we are saving the token: {}".format(user.keystone_token))
+                response.set_cookie(key=settings.KEYSTONE_TOKEN_KEY, value=user.keystone_token)
 
                 return response
             else:

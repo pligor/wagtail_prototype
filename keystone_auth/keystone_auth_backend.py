@@ -21,11 +21,14 @@ class KeystoneAuthBackend(object):
 
         assert isinstance(user, KeystoneUser)
 
-        user.token = token
+        user.keystone_token = token
 
         user_filled = fill_user(user=user)
 
+        print("#### USER ####")
+        print("(no request)" if request is None else request.path)
         print(user_filled)
+        print(user_filled.id)
         print(user_filled.roles)
 
         return user
@@ -69,7 +72,7 @@ class KeystoneAuthBackend(object):
         user = self._get_user_with_token(token)
         assert isinstance(user, KeystoneUser)
 
-        user.token = token
+        user.keystone_token = token
 
         if user is None:
             raise Exception("server error")

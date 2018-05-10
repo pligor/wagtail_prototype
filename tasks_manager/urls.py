@@ -31,6 +31,7 @@ from .my_update_view import MyUpdateView
 from .update_view_custom import UpdateViewCustom
 from .views import logout
 
+app_name = 'tasks_manager' #you need to define the namespace also here
 urlpatterns = [
     url(r'^$', page, name="home"),
     url(r'^conn$', connection, name="conn"),
@@ -102,8 +103,6 @@ urlpatterns = [
         success_url='project_update',
         fields='__all__',
     ), name='project_update'),
-
-
 ]
 
 """

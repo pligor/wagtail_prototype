@@ -3,10 +3,29 @@ from .keystone_utils import get_user_with_token, fill_user
 from django.shortcuts import redirect
 from .models import KeystoneUser
 
+#https://docs.djangoproject.com/en/1.11/topics/http/middleware/
 def keystone_middleware(get_response):
     # One-time configuration and initialization.
 
     def middleware(request):
+        # from django.urls import reverse_lazy, reverse
+        # # login_url = reverse_lazy(settings.LOGIN_URL_PATH_EXEMPT_FROM_AUTH)
+        # login_url = reverse("tasks_manager:conn")
+        # print("login url")
+        # print(login_url)
+        # return get_response(request)
+
+        # from django import urls
+        #
+        # def show_urls(urllist, depth=0):
+        #     for entry in urllist:
+        #         print("  " * depth, entry.regex.pattern)
+        #         if hasattr(entry, 'url_patterns'):
+        #             show_urls(entry.url_patterns, depth + 1)
+        #
+        # show_urls(urls.url_patterns)
+        # return get_response(request)
+
         def _go_to_login(path):
             return redirect(to=settings.LOGIN_URL_PATH_EXEMPT_FROM_AUTH + "?next=" + path)
 
@@ -35,7 +54,7 @@ def keystone_middleware(get_response):
                         return _go_to_login(path_with_slash)
 
                     assert isinstance(user, KeystoneUser)
-                    user.token = token
+                    user.keystone_token = token
                     user_filled = fill_user(user=user)
 
                     request.user = user_filled

@@ -8,7 +8,7 @@ class KeystoneUser(User):
 
     # these are populated by a call to Keystone
     uuid = None
-    token = None
+    keystone_token = None
     roles = []
 
     class Meta:

@@ -54,8 +54,8 @@ REST_FRAMEWORK = {
 # out session data if you need to force users to re-authenticate using different methods. A simple
 # way to do that is simply to execute Session.objects.all().delete().
 AUTHENTICATION_BACKENDS = [
-                              'keystone_auth.keystone_auth_backend.KeystoneAuthBackend',
-                          ] #+ AUTHENTICATION_BACKENDS
+                              # 'keystone_auth.keystone_auth_backend.KeystoneAuthBackend',
+                          ] + AUTHENTICATION_BACKENDS
 
 KEYSTONE_URL = 'http://localhost:9001'
 KEYSTONE_LOGIN = KEYSTONE_URL + "/api/api-token-auth/"
@@ -63,7 +63,8 @@ KEYSTONE_AUTH_TOKEN = KEYSTONE_URL + "/api/tokens/"
 KEYSTONE_API_SYSTEM_TOKEN = "	28e2ddd97954f56bd47872e7433851bcb94507b7"
 KEYSTONE_TOKEN_KEY = "keystone_token"
 
-LOGIN_URL_PATH_EXEMPT_FROM_AUTH = '/tasks_mngr/conn'
+LOGIN_URL_PATH_EXEMPT_FROM_AUTH = '/tasks_mngr/conn' #avoid hardcoded urls
+# LOGIN_URL_PATH_EXEMPT_FROM_AUTH = 'tasks_manager:conn'
 
 try:
     from .local_settings import *

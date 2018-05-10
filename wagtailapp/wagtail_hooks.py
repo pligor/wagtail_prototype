@@ -7,6 +7,7 @@ from .models_module.blog_page import BlogPage
 def do_after_create_page(request, page):
     if isinstance(page, BlogPage):
         page.specific.author = request.user.username
-        page.save()
+        # page.save()
+        page.save_revision().publish()
     else:
         print("current page is not a blog page")
