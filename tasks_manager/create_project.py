@@ -4,7 +4,6 @@ from .models import Project
 
 from django import forms
 
-
 class Form_project_create(forms.Form):
     """this generates forms similar to models style"""
 
@@ -20,7 +19,8 @@ class Form_project_create(forms.Form):
 from django.contrib.auth.decorators import login_required
 
 
-@login_required()
+#need to check the token with keystone
+# @login_required()
 def create_project(request):
     from django.conf import settings
     print('Are the local settings loaded? {}'.format(settings.LOCAL_SETTINGS_LOADED))

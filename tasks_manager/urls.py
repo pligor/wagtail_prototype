@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^$', page, name="home"),
     url(r'^conn$', connection, name="conn"),
     url(r'^logout$', logout, name="logout"),
-    url(r'^create_project$', create_project, name="create_project"),
+    url(r'^create_project', create_project, name="create_project"),
     url(r'^list_projects$', list_projects, name="list_projects"),
     url(r'^get_only_one_record$', get_only_one_record, name="get_only_one_record"),
 

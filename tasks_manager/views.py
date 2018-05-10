@@ -97,6 +97,9 @@ def page(request):
 
 
 def logout(request):
-    from django.contrib.auth import logout
-    logout(request)
-    return HttpResponse("You are logged out!")
+    # from django.contrib.auth import logout
+    # logout(request)
+    from django.conf import settings
+    response = HttpResponse("You are logged out!")
+    response.set_cookie(key=settings.KEYSTONE_TOKEN_KEY, value=None)
+    return response

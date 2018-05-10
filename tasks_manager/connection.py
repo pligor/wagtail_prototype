@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from django import forms
 from django.contrib.auth import authenticate, login
-
+from django.conf import settings
 
 class Form_connection(forms.Form):
+    def initialize(self, request):
+        self.request = request
+
     username = forms.CharField(label='Login')
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    next_url = forms.CharField(widget=forms.HiddenInput)
+    next_url = forms.CharField(widget=forms.HiddenInput, required=False)
 
     def clean(self):
         # after this call self.cleaned_data should be populated
@@ -17,16 +20,16 @@ class Form_connection(forms.Form):
 
         # print([username, password])
 
-        if username and password and not authenticate(username=username, password=password):
-            # print("INVALID USER!!")
+        if username and password and not authenticate(
+                username=username, password=password, request=self.request):
             raise forms.ValidationError("Wrong login or pass")
         else:
             return self.cleaned_data
 
-
 def connection(request):
     if request.method == 'POST':
         form = Form_connection(request.POST)
+        form.initialize(request)
 
         # print("NEXT_URL POST")
         # print(form.data['next_url'])
@@ -36,14 +39,24 @@ def connection(request):
             password = form.cleaned_data["password"]
 
             # authenticate actually gets you user object!
-            user = authenticate(username=username, password=password)
+            # user = authenticate(username=username, password=password)
+            user = authenticate(username=username, password=password, request=request)
 
             if user:
                 # the login now means that your user is logged in and any authorizations will pass
-                login(request, user)
+                # login(request, user)
 
-                next_url = form.cleaned_data["next_url"]
-                return redirect(to=next_url)
+                next_url = form.cleaned_data["next_url"] or request.GET.get("next", "")
+
+                if len(next_url) == 0:
+                    response = redirect(to='home')
+                else:
+                    response = redirect(to=next_url)
+
+                print("we are saving the token: {}".format(user.token))
+                response.set_cookie(key=settings.KEYSTONE_TOKEN_KEY, value=user.token)
+
+                return response
             else:
                 return render(request, 'tasks_manager/connection.html')
         else:
@@ -56,6 +69,7 @@ def connection(request):
                 'next_url': request.GET.get('next')
             }
         )
+        form.initialize(request)
 
         # print("NEXT_URL GET")
         # print(form.data['next_url'])

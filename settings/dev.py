@@ -9,13 +9,17 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOCAL_SETTINGS_LOADED = False
 
+#try to put it at the beginning of the installed apps
 INSTALLED_APPS = ['rest_framework'] + INSTALLED_APPS
 INSTALLED_APPS = MyWagtailConfig.INSTALLED_APPS + INSTALLED_APPS
 INSTALLED_APPS = ['wagtailapp'] + INSTALLED_APPS
+INSTALLED_APPS = ['keystone_auth'] + INSTALLED_APPS
 
 # print(INSTALLED_APPS)
 
+#try to put it at the end of the middleware
 MIDDLEWARE.extend(MyWagtailConfig.MIDDLEWARE)
+MIDDLEWARE.extend(['keystone_auth.keystone_middleware.keystone_middleware'])
 
 try:
     STATIC_ROOT
@@ -42,6 +46,24 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",  # default one, useful to devs
     ]
 }
+
+# Once a user has authenticated, Django stores which backend was used to authenticate the user in
+# the user’s session, and re-uses the same backend for the duration of that session whenever access
+# to the currently authenticated user is needed. This effectively means that authentication sources
+# are cached on a per-session basis, so if you change AUTHENTICATION_BACKENDS, you’ll need to clear
+# out session data if you need to force users to re-authenticate using different methods. A simple
+# way to do that is simply to execute Session.objects.all().delete().
+AUTHENTICATION_BACKENDS = [
+                              'keystone_auth.keystone_auth_backend.KeystoneAuthBackend',
+                          ] #+ AUTHENTICATION_BACKENDS
+
+KEYSTONE_URL = 'http://localhost:9001'
+KEYSTONE_LOGIN = KEYSTONE_URL + "/api/api-token-auth/"
+KEYSTONE_AUTH_TOKEN = KEYSTONE_URL + "/api/tokens/"
+KEYSTONE_API_SYSTEM_TOKEN = "	28e2ddd97954f56bd47872e7433851bcb94507b7"
+KEYSTONE_TOKEN_KEY = "keystone_token"
+
+LOGIN_URL_PATH_EXEMPT_FROM_AUTH = '/tasks_mngr/conn'
 
 try:
     from .local_settings import *

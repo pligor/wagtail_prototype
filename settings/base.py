@@ -164,5 +164,6 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, "tmp")
 
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 
 #Use environment variable: export DJANGO_SETTINGS_MODULE=....
