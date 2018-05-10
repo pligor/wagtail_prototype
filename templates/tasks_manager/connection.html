@@ -8,7 +8,7 @@
 
 {% else %}
 <h1>Connection</h1>
-<form method="post" action="{% url 'conn' %}">
+<form method="post" action="{% url 'tasks_manager:conn' %}">
   {% csrf_token %}
 
   <table>

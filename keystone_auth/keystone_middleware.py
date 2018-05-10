@@ -10,7 +10,8 @@ def keystone_middleware(get_response):
     def middleware(request):
         # from django.urls import reverse_lazy, reverse
         # # login_url = reverse_lazy(settings.LOGIN_URL_PATH_EXEMPT_FROM_AUTH)
-        # login_url = reverse("tasks_manager:conn")
+        # # login_url = reverse("tasks_manager:conn")
+        # login_url = reverse("conn")
         # print("login url")
         # print(login_url)
         # return get_response(request)
@@ -49,6 +50,7 @@ def keystone_middleware(get_response):
                     print("try to use the cookie to login via keystone: {}".format(
                         token if token else "(not defined yet)"))
 
+                    #CHECK LOCAL DB if user exists
                     user = get_user_with_token(token)
                     if user is None:
                         return _go_to_login(path_with_slash)
@@ -57,6 +59,7 @@ def keystone_middleware(get_response):
                     user.keystone_token = token
                     user_filled = fill_user(user=user)
 
+                    #SAVE IN LOCAL DB the user
                     request.user = user_filled
                     #
                     # print(user_filled)

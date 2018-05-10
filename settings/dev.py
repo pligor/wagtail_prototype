@@ -16,10 +16,13 @@ INSTALLED_APPS = ['wagtailapp'] + INSTALLED_APPS
 INSTALLED_APPS = ['keystone_auth'] + INSTALLED_APPS
 
 # print(INSTALLED_APPS)
+MY_AUTH = False
 
 #try to put it at the end of the middleware
 MIDDLEWARE.extend(MyWagtailConfig.MIDDLEWARE)
-MIDDLEWARE.extend(['keystone_auth.keystone_middleware.keystone_middleware'])
+if MY_AUTH:
+    pass
+    MIDDLEWARE.extend(['keystone_auth.keystone_middleware.keystone_middleware'])
 
 try:
     STATIC_ROOT
@@ -53,9 +56,12 @@ REST_FRAMEWORK = {
 # are cached on a per-session basis, so if you change AUTHENTICATION_BACKENDS, you’ll need to clear
 # out session data if you need to force users to re-authenticate using different methods. A simple
 # way to do that is simply to execute Session.objects.all().delete().
-AUTHENTICATION_BACKENDS = [
-                              # 'keystone_auth.keystone_auth_backend.KeystoneAuthBackend',
-                          ] + AUTHENTICATION_BACKENDS
+
+
+if MY_AUTH:
+    AUTHENTICATION_BACKENDS = [
+                                  'keystone_auth.keystone_auth_backend.KeystoneAuthBackend',
+                              ] #+ AUTHENTICATION_BACKENDS
 
 KEYSTONE_URL = 'http://localhost:9001'
 KEYSTONE_LOGIN = KEYSTONE_URL + "/api/api-token-auth/"
