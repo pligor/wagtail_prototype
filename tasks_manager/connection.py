@@ -44,7 +44,7 @@ def connection(request):
 
             if user:
                 # the login now means that your user is logged in and any authorizations will pass
-                # login(request, user)
+                # login(request, user) #TODO what does this function do exactly
 
                 next_url = form.cleaned_data["next_url"] or request.GET.get("next", "")
 

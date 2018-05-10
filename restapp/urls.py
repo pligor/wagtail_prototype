@@ -18,10 +18,11 @@ from django.contrib import admin
 from rest_framework import routers, serializers, viewsets
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .views import UserViewSet
+from .views import UserViewSet, BlogPageViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)  # this is to include these views for the users
+router.register(r"blogs", BlogPageViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),  # this is to include all the router.urls

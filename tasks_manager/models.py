@@ -31,7 +31,7 @@ class UserProfile(models.Model):
         return self.user_auth.username
 
     def __str__(self):
-        #return super().__str__()
+        # return super().__str__()
         return self.user_auth.username
         # return ' '.join([self.user_auth.first_name, self.user_auth.last_name])
 

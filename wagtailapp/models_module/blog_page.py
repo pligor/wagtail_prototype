@@ -12,12 +12,14 @@ from taggit.models import TaggedItemBase
 
 from .blog_category import BlogCategory
 
+
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
         "wagtailapp.BlogPage",
         on_delete=models.CASCADE,
         related_name="tagged_items",
     )
+
 
 class BlogPage(Page):
     date = models.DateField("Post date")
@@ -38,7 +40,7 @@ class BlogPage(Page):
             FieldPanel('date'),
             FieldPanel('tags'),
 
-            #This is NOT an Inline Panel because it is looking up to a parent(s)
+            # This is NOT an Inline Panel because it is looking up to a parent(s)
             # (since it is many to many)
             FieldPanel('categories', widget=forms.CheckboxSelectMultiple)
             # Widget is not necessary, but we choose our own for UX reasons
@@ -48,7 +50,7 @@ class BlogPage(Page):
         FieldPanel('intro'),
         FieldPanel('body', classname="full"),
 
-        #This is because we are looking down, to children images
+        # This is because we are looking down, to children images
         InlinePanel(relation_name='gallery_images', label="Gallery Images"),
     ]
 
@@ -61,13 +63,9 @@ class BlogPage(Page):
     # def save(self, *args, **kwargs):
     #     print(kwargs.keys())
     #     super().save(*args, **kwargs)
-    
 
     def get_context(self, request, *args, **kwargs):
         return super().get_context(request, *args, **kwargs)
-
-
-
 
 
 class BlogPageGalleryImage(Orderable):
@@ -85,3 +83,61 @@ class BlogPageGalleryImage(Orderable):
         FieldPanel('caption'),
     ]
 
+# _state
+# id
+# path
+# depth
+# numchild
+# title
+# draft_title
+# slug
+# content_type_id
+# live
+# has_unpublished_changes
+# url_path
+# owner_id
+# seo_title
+# show_in_menus
+# search_description
+# go_live_at
+# expire_at
+# expired
+# locked
+# first_published_at
+# last_published_at
+# latest_revision_created_at
+# live_revision_id
+# page_ptr_id
+# date
+# intro
+# body
+# author
+# _state
+# id
+# path
+# depth
+# numchild
+# title
+# draft_title
+# slug
+# content_type_id
+# live
+# has_unpublished_changes
+# url_path
+# owner_id
+# seo_title
+# show_in_menus
+# search_description
+# go_live_at
+# expire_at
+# expired
+# locked
+# first_published_at
+# last_published_at
+# latest_revision_created_at
+# live_revision_id
+# page_ptr_id
+# date
+# intro
+# body
+# author

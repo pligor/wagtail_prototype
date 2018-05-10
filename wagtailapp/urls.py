@@ -18,11 +18,13 @@ from django.urls import reverse_lazy
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
+from .views import some_blogs
 
 urlpatterns = [
     url(r'^cms/', include(wagtailadmin_urls)),  # admin interface for wagtail
     url(r'^documents/', include(wagtaildocs_urls)),  # document files to be served (document management)
-    url(r'^', include(wagtail_urls)),  # here are all the pages
+    url(r'^some_blogs/', some_blogs, name='some_blogs'),  # here are all the pages
+    url(r'', include(wagtail_urls)),  # here are all the pages
 ]
 
 """

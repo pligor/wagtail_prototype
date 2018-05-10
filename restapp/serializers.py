@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from wagtailapp.models_module.blog_page import BlogPage
 
 
 # class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -12,3 +13,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'is_staff', 'email_name')
+
+
+class BlogPageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogPage
+        fields = ("id", "title", "slug", "date", "intro", "body", "author")
