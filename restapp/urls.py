@@ -18,15 +18,18 @@ from django.contrib import admin
 from rest_framework import routers, serializers, viewsets
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .views import UserViewSet, BlogPageViewSet
+from .views import UserViewSet, BlogPageViewSet, redirect_to_my_auth
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)  # this is to include these views for the users
 router.register(r"blogs", BlogPageViewSet)
 
+# http://localhost:8080/restapp/api-auth/login/?next=/restapp/
+
+
 urlpatterns = [
     url(r'^', include(router.urls)),  # this is to include all the router.urls
-
+    url(r'^api-auth/login//{0,1}', redirect_to_my_auth),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 

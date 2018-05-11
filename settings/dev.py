@@ -9,7 +9,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOCAL_SETTINGS_LOADED = False
 
-#try to put it at the beginning of the installed apps
+# try to put it at the beginning of the installed apps
 INSTALLED_APPS = ['rest_framework'] + INSTALLED_APPS
 INSTALLED_APPS = MyWagtailConfig.INSTALLED_APPS + INSTALLED_APPS
 INSTALLED_APPS = ['wagtailapp'] + INSTALLED_APPS
@@ -18,7 +18,7 @@ INSTALLED_APPS = ['keystone_auth'] + INSTALLED_APPS
 # print(INSTALLED_APPS)
 MY_AUTH = True
 
-#try to put it at the end of the middleware
+# try to put it at the end of the middleware
 MIDDLEWARE.extend(MyWagtailConfig.MIDDLEWARE)
 if MY_AUTH:
     MIDDLEWARE.extend(['keystone_auth.keystone_middleware.keystone_middleware'])
@@ -44,6 +44,7 @@ REST_FRAMEWORK = {
     ],
 
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        'keystone_auth.keystone_rest_auth.KeystoneRestAuthentication',
         "rest_framework.authentication.TokenAuthentication",  # http header is required here, HTTP_AUTHORIZATION
         "rest_framework.authentication.SessionAuthentication",  # default one, useful to devs
     ]
@@ -59,8 +60,8 @@ REST_FRAMEWORK = {
 
 if MY_AUTH:
     AUTHENTICATION_BACKENDS = [
-                                  'keystone_auth.keystone_auth_backend.KeystoneAuthBackend',
-                              ] #+ AUTHENTICATION_BACKENDS
+        'keystone_auth.keystone_auth_backend.KeystoneAuthBackend',
+    ]  # + AUTHENTICATION_BACKENDS
 
 KEYSTONE_URL = 'http://localhost:9001'
 KEYSTONE_LOGIN = KEYSTONE_URL + "/api/api-token-auth/"
@@ -70,8 +71,9 @@ KEYSTONE_TOKEN_KEY = "keystone_token"
 
 # LOGIN_URL_PATH_EXEMPT_FROM_AUTH = '/tasks_mngr/conn' #avoid hardcoded urls
 LOGIN_URL_PATH_EXEMPT_FROM_AUTH = 'tasks_manager:conn'
-
 WAGTAIL_FRONTEND_LOGIN_URL = '/tasks_mngr/conn'
+
+# LOGIN_REDIRECT_URL = 'tasks_manager:conn'
 
 try:
     from .local_settings import *
