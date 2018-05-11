@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Project, Task, Developer
+from django.conf import settings
 
 
 def raw_query(request):
@@ -99,7 +100,12 @@ def page(request):
 def logout(request):
     from django.contrib.auth import logout
     logout(request)
-    from django.conf import settings
     response = HttpResponse("You are logged out!")
     response.set_cookie(key=settings.KEYSTONE_TOKEN_KEY, value=None)
     return response
+
+
+def show_cookie(request):
+    return HttpResponse("This is the cookie: {}".format(
+        request.COOKIES.get(settings.KEYSTONE_TOKEN_KEY, "(empty cookie)")
+    ))

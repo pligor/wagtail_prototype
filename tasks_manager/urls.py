@@ -29,14 +29,15 @@ from .models import Project, Task
 from django.urls import reverse_lazy
 from .my_update_view import MyUpdateView
 from .update_view_custom import UpdateViewCustom
-from .views import logout
+from .views import logout, show_cookie
 
 app_name = 'tasks_manager' #you need to define the namespace also here
 urlpatterns = [
     url(r'^$', page, name="home"),
-    url(r'^conn$', connection, name="conn"),
+    url(r'^show_cookie//{0,1}', show_cookie, name="show_cookie"),
+    url(r'^conn//{0,1}', connection, name="conn"),
     url(r'^logout$', logout, name="logout"),
-    url(r'^create_project', create_project, name="create_project"),
+    url(r'^create_project//{0,1}', create_project, name="create_project"),
     url(r'^list_projects$', list_projects, name="list_projects"),
     url(r'^get_only_one_record$', get_only_one_record, name="get_only_one_record"),
 
@@ -54,7 +55,6 @@ urlpatterns = [
     url(r'^create_supervisor$', create_supervisor, name="create_supervisor"),
     url(r'^create_supervisor_and_user$', create_supervisor_and_user, name="create_supervisor_and_user"),
 
-    url(r'^create_project$', create_project, name="create_project"),
     url(r'^create_project_cbv$',
         CreateView.as_view(model=Project,  # CLASS BASED, AUTOMAGICALLY CREATE A VIEW
                            template_name="tasks_manager/create_project_cbv.html",

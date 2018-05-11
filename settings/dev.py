@@ -16,12 +16,11 @@ INSTALLED_APPS = ['wagtailapp'] + INSTALLED_APPS
 INSTALLED_APPS = ['keystone_auth'] + INSTALLED_APPS
 
 # print(INSTALLED_APPS)
-MY_AUTH = False
+MY_AUTH = True
 
 #try to put it at the end of the middleware
 MIDDLEWARE.extend(MyWagtailConfig.MIDDLEWARE)
 if MY_AUTH:
-    pass
     MIDDLEWARE.extend(['keystone_auth.keystone_middleware.keystone_middleware'])
 
 try:
@@ -69,8 +68,10 @@ KEYSTONE_AUTH_TOKEN = KEYSTONE_URL + "/api/tokens/"
 KEYSTONE_API_SYSTEM_TOKEN = "	28e2ddd97954f56bd47872e7433851bcb94507b7"
 KEYSTONE_TOKEN_KEY = "keystone_token"
 
-LOGIN_URL_PATH_EXEMPT_FROM_AUTH = '/tasks_mngr/conn' #avoid hardcoded urls
-# LOGIN_URL_PATH_EXEMPT_FROM_AUTH = 'tasks_manager:conn'
+# LOGIN_URL_PATH_EXEMPT_FROM_AUTH = '/tasks_mngr/conn' #avoid hardcoded urls
+LOGIN_URL_PATH_EXEMPT_FROM_AUTH = 'tasks_manager:conn'
+
+WAGTAIL_FRONTEND_LOGIN_URL = '/tasks_mngr/conn'
 
 try:
     from .local_settings import *

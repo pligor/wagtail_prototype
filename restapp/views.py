@@ -4,7 +4,6 @@ from rest_framework import routers, serializers, viewsets
 from .serializers import UserSerializer
 from wagtailapp.models_module.blog_page import BlogPage
 from .serializers import BlogPageSerializer
-from django.db.models.query import QuerySet
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -13,9 +12,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class BlogPageViewSet(viewsets.ModelViewSet):
-    queryset = BlogPage.objects.all()[:0]   #this will not be used if get_queryset is defined
+    queryset = BlogPage.objects.all()[:0]  # this will not be used if get_queryset is defined
 
     def get_queryset(self):
-        return BlogPage.objects.all()#[:2]
+        return BlogPage.objects.all()  # [:2]
 
     serializer_class = BlogPageSerializer

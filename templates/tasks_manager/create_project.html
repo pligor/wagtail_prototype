@@ -9,7 +9,7 @@ Create Project with Django Forms
 {% endblock %}
 
 {% block article_content %}
-<form method="post" action="{% url 'create_project' %}">
+<form method="post" action="{% url 'tasks_manager:create_project' %}">
   {% csrf_token %}
 
   <table>
