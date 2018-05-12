@@ -13,24 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
-from django.contrib import admin
-from .index import home
-from django.conf import settings
-from django.conf.urls.static import static
+from django.conf.urls import url
 
-admin.autodiscover()
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .views_module.email_home import email_home
 
+app_name = 'emailing' #you need to define the namespace also here
 urlpatterns = [
-    url(r'^$', home),
-    url(r'^index/$', home),
-    url(r'^admin/', admin.site.urls),
-    url(r'^tasks_mngr/', include('tasks_manager.urls', namespace="tasks_manager")),
-    url(r'^restapp/', include('restapp.urls')),
-    url(r'^wagtailapp/', include('wagtailapp.urls')),
-    url(r'^emailing/', include('emailing.urls')),
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# THIS LAST LINE is a way to add the media (typically uploaded files) to be served as static
+    url(r'^$', email_home, name="email_home"),
+    #url(r'^create_project//{0,1}', create_project, name="create_project"),
+]
 
 """
  [0-9] is equivalent to [0123456789]
