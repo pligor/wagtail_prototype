@@ -18,11 +18,13 @@ from django.conf.urls import url
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .views_module.email_home import email_home
+from .views_module.test_email import test_email
+
 
 app_name = 'emailing' #you need to define the namespace also here
 urlpatterns = [
     url(r'^$', email_home, name="email_home"),
-    #url(r'^create_project//{0,1}', create_project, name="create_project"),
+    url(r'^test_email//{0,1}', test_email, name="test_email"),
 ]
 
 """

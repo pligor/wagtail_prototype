@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "synonym_analyzer": {
+            "tokenizer": "whitespace",
+            "filter": [
+              "synonym_filter"
+            ]
+          }
+        },
+        "filter": {
+          "synonym_filter": {
+            "type": "synonym",
+            "ignore_case": true,
+            "expand": true,
+            "synonyms": [
+              "Leia, Darth"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "_default_": {
+      "dynamic_templates": [
+        {
+          "string_fields": {
+            "match": "*",
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "string",
+              "analyzer": "synonym_analyzer"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

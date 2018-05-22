@@ -1,0 +1,50 @@
+https://medium.com/@lucasmagnum/elasticsearch-setting-up-a-synonyms-search-facea907ef92
+We have verified that it is NOT working without
+
+curl -XDELETE 'elasticsearch_kss:9200/laptops/?pretty'
+
+#replace `"type": "string",` with `"type": "text",` in later versions of elasticsearch
+curl -XPUT 'elasticsearch_kss:9200/laptops/?pretty' -H 'Content-Type: application/json' -d'
+{
+    "settings": {
+        "index" : {
+            "analysis" : {
+                "filter" : {
+                    "synonym_filter" : {
+                        "type" : "synonym",
+                        "synonyms" : [
+                            "laptop, notebook"
+                        ]
+                    }
+                },
+                "analyzer" : {
+                    "synonym_analyzer" : {
+                        "tokenizer" : "standard",
+                        "filter" : ["lowercase", "synonym_filter"]
+                    }
+                }
+            }
+        }
+    },
+    "mappings": {
+        "doc": {
+            "properties": {
+              "title": {
+                "type": "string",
+                "analyzer": "synonym_analyzer"
+              }
+            }
+        }
+    }
+}'
+
+curl -XPUT 'elasticsearch_kss:9200/laptops/doc/1?pretty&pretty' -H 'Content-Type: application/json' -d'{"title": "Laptop X1 i7 8gb RAM"}'
+curl -XPUT 'elasticsearch_kss:9200/laptops/doc/2?pretty&pretty' -H 'Content-Type: application/json' -d'{"title": "Laptop X2 i5 4gb RAM"}'
+curl -XPUT 'elasticsearch_kss:9200/laptops/doc/3?pretty&pretty' -H 'Content-Type: application/json' -d'{"title": "Laptop X3 i3 2gb RAM"}'
+curl -XPUT 'elasticsearch_kss:9200/laptops/doc/4?pretty&pretty' -H 'Content-Type: application/json' -d'{"title": "Laptop X4 i7 6gb RAM"}'
+
+curl -XGET 'elasticsearch_kss:9200/laptops/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+  "query": { "match": { "title": "notebook" } }
+}
+'
