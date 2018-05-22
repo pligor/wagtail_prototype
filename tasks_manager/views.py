@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Project, Task, Developer
 from django.conf import settings
+import keen
 
 
 def raw_query(request):
@@ -84,6 +85,18 @@ def create_project(request):
 def page(request):
     my_var = "<THIS> Is my string"
     capitals = ['Paris', 'London', 'Washington']
+
+    keen.project_id = settings.KEEN_PROJECT_ID
+    keen.write_key = settings.KEEN_WRITE_KEY
+
+    keen_return = keen.add_event("home_page", {
+        "name": "Work Manager Project",
+        "testing": "hell yeah",
+    })
+
+    # https://keen.io/invite/03d6b4105dba11e8908f0242ac110003 <-- admin access
+    print("KEEN have been fired and return value is: {}".format(keen_return))
+
     return render(request, 'tasks_manager/index.html', {
         "str_var": my_var,
         "years": 55,
