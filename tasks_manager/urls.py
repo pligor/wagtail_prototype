@@ -30,10 +30,12 @@ from django.urls import reverse_lazy
 from .my_update_view import MyUpdateView
 from .update_view_custom import UpdateViewCustom
 from .views import logout, show_cookie
+from .views_module.custom_class_based_view import CustomCBV
 
-app_name = 'tasks_manager' #you need to define the namespace also here
+app_name = 'tasks_manager'  # you need to define the namespace also here
 urlpatterns = [
     url(r'^$', page, name="home"),
+    url(r'^custom_class_based_view$', CustomCBV.as_view(), name="custom_class_based_view"),
     url(r'^show_cookie//{0,1}', show_cookie, name="show_cookie"),
     url(r'^conn//{0,1}', connection, name="conn"),
     url(r'^logout$', logout, name="logout"),
@@ -69,7 +71,7 @@ urlpatterns = [
         template_name="tasks_manager/list_project.html",
     ), name="project_listing"),
 
-    # TODO EXTENDING CBVs is an ANTIPATTERN
+    # TODO EXTENDING CRUD CBVs is an ANTIPATTERN
 
     # NOTE THAT WE ARE FORCED TO USE the PARAMETER to be "pk" otherwise the DetailView is not
     # going to automagically work
