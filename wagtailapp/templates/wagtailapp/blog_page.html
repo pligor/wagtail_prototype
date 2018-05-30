@@ -2,6 +2,7 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load demo_tags %}
 
 {% block body_class %}template-blogpage{% endblock %}
 
@@ -11,7 +12,7 @@
     {% if page.advertisement %}
         <p>
             Don't forget this awesome advertisement:<br/>
-            {{ page.advertisement.text }}
+            {% simple_advert page.advertisement %}
         </p>
     {% endif %}
 
