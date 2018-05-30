@@ -44,17 +44,23 @@ def connection(request):
 
             if user:
                 # the login now means that your user is logged in and any authorizations will pass
-                # login(request, user) #TODO what does this function do exactly
+                if settings.MY_AUTH:
+                    pass #skip traditional login method
+                else:
+                    login(request, user)
 
                 next_url = form.cleaned_data["next_url"] or request.GET.get("next", "")
 
                 if len(next_url) == 0:
-                    response = redirect(to='home')
+                    response = redirect(to='tasks_manager:home')
                 else:
                     response = redirect(to=next_url)
 
-                print("we are saving the token: {}".format(user.keystone_token))
-                response.set_cookie(key=settings.KEYSTONE_TOKEN_KEY, value=user.keystone_token)
+                if settings.MY_AUTH:
+                    print("we are saving the token: {}".format(user.keystone_token))
+                    response.set_cookie(key=settings.KEYSTONE_TOKEN_KEY, value=user.keystone_token)
+                else:
+                    pass
 
                 return response
             else:

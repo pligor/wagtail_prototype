@@ -1,0 +1,7 @@
+{% for advert in adverts %}
+    <p>
+        <a href="{{ advert.url }}" target="_blank">
+            {{ advert.text }}
+        </a>
+    </p>
+{% endfor %}
