@@ -12,6 +12,8 @@ from taggit.models import TaggedItemBase
 
 from .blog_category import BlogCategory
 
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
 
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
@@ -30,12 +32,28 @@ class BlogPage(Page):
 
     author = models.CharField(max_length=250, default="(no author)")
 
+    # relation to snippets
+    advertisement = models.ForeignKey(
+        'wagtailapp.Advert',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+        # related_name='its_blog_page'
+    )
+
+    # class Meta:
+    #     verbose_name = "blog page"
+    #     verbose_name_plural = "blog pages"
+
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
     ]
 
     content_panels = Page.content_panels + [
+        SnippetChooserPanel('advertisement'),  # the name of the field in here as always
+
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('tags'),

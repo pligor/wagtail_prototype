@@ -4,6 +4,7 @@ from .models_module.blog_index_page import *
 from .models_module.blog_page import *
 from .models_module.blog_tag_index_page import *
 from .models_module.blog_category import *
+from .models_module.advert_snippet import *
 
 #     # HOW TO NAVIGATE THE HIERARCHY
 #     # Given a page object 'somepage':

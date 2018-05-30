@@ -8,6 +8,13 @@
 {% block content %}
     <h1>{{ page.title }}</h1>
 
+    {% if page.advertisement %}
+        <p>
+            Don't forget this awesome advertisement:<br/>
+            {{ page.advertisement.text }}
+        </p>
+    {% endif %}
+
     {% if page.categories|length %}
         <p>Categories of post:</p>
     {% endif %}
