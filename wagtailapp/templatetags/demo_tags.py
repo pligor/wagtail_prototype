@@ -9,9 +9,9 @@ register = template.Library()  # initiate register decorator
 @register.inclusion_tag('wagtailapp/simple_adverts.html',  # so this is considering the app / name of html
                         takes_context=True  # USEFUL
                         )
-def adverts(context):
+def adverts(context, adverts = AdvertSnippet.objects.all()):
     return {
-        'adverts': AdvertSnippet.objects.all(),
+        'adverts': adverts,
         'request': context['request']
     }
 

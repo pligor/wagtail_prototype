@@ -11,8 +11,8 @@
   <div class="intro">{{ page.intro|richtext }}</div>
 
     <div>
-    edw ta kala adverts:<br/>
-    {% adverts %}
+    edw ta kala adverts apo thn selida {{ page.title }}:<br/>
+    {% adverts page.get_advertisements %}
     </div>
 
   {#    {% for blogpost_instance in page.get_children.live %}#}
