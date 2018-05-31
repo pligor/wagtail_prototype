@@ -1,7 +1,7 @@
 #The name of this file should NOT be changed
 
 from wagtail.core import hooks
-from .models_module.blog_page import BlogPage
+from .models.blog_page import BlogPage
 
 @hooks.register("after_create_page")
 def do_after_create_page(request, page):

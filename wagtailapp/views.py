@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import BlogPage
+from .models.blog_page import BlogPage
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse
 

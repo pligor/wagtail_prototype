@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from .serializers import UserSerializer
-from wagtailapp.models_module.blog_page import BlogPage
+from wagtailapp.models.blog_page import BlogPage
 from .serializers import BlogPageSerializer
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse

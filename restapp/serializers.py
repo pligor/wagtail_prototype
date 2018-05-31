@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
-from wagtailapp.models_module.blog_page import BlogPage
+from wagtailapp.models.blog_page import BlogPage
 
 
 # class UserSerializer(serializers.HyperlinkedModelSerializer):

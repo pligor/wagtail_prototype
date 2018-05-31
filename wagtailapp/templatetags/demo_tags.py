@@ -1,7 +1,7 @@
 # http://docs.wagtail.io/en/v2.0/topics/snippets.html
 
 from django import template
-from wagtailapp.models_module.advert_snippet import Advert
+from wagtailapp.models.advert_snippet import AdvertSnippet
 
 register = template.Library()  # initiate register decorator
 
@@ -11,7 +11,7 @@ register = template.Library()  # initiate register decorator
                         )
 def adverts(context):
     return {
-        'adverts': Advert.objects.all(),
+        'adverts': AdvertSnippet.objects.all(),
         'request': context['request']
     }
 

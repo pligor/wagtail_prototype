@@ -6,7 +6,7 @@ from wagtail.snippets.models import register_snippet
 #this seems to work automagically, no need to define it anywhere that we are using this particular file to register the
 #snippet
 @register_snippet
-class Advert(models.Model):
+class AdvertSnippet(models.Model):
     """
     Snippets do NOT use multiple tabs of fields
     Snippets do NOT provide the “save as draft” or “submit for moderation” features

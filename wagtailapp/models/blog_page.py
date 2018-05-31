@@ -32,9 +32,12 @@ class BlogPage(Page):
 
     author = models.CharField(max_length=250, default="(no author)")
 
+    from .advert_snippet import AdvertSnippet
+
     # relation to snippets
     advertisement = models.ForeignKey(
-        'wagtailapp.Advert',
+        # 'wagtailapp.AdvertSnippet',
+        AdvertSnippet,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
