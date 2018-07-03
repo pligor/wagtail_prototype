@@ -9,7 +9,9 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
+    # template = 'wagtailapp/blog_index_page.html'
     template = 'wagtailapp/blog_index_inline.html'
+    # TODO we only need to change the template
 
     # from .ad_blog_rel import AdvertBlogPageIndexRelationship
     # from .advert_snippet import AdvertSnippet

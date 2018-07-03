@@ -24,6 +24,10 @@ class BlogPageTag(TaggedItemBase):
 
 
 class BlogPage(Page):
+    #template = 'wagtailapp/blog_page.html'
+    template = 'wagtailapp/blog_page_inline.html'
+    # TODO we only need to change the template
+
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
