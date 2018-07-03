@@ -28,7 +28,11 @@ More here: https://stackoverflow.com/questions/32653518/django-rest-framework-re
     <div class="container">
         <div class="row">
             <h1>List of articles
-                <button class="btn btn-success">ADD ARTICLE</button>
+                <button type="button" class="btn btn-success"
+{#                        bootstrap bullcrap#}
+                        data-toggle="modal"
+                        data-target="#addArticleModal" {# this has to match the div's id #}
+                >ADD ARTICLE</button>
             </h1>
             <table class="table">
                 <thead>
@@ -41,7 +45,7 @@ More here: https://stackoverflow.com/questions/32653518/django-rest-framework-re
 
                 <tbody>
 {#                here we have only the v-something and anything being inside the ${ .. } to play a role#}
-                <tr v-for="article in articles">
+                <tr v-for="article in articles"> {# ALSO HERE we are using vue js #}
                     <th scope="row">${article.article_id}</th>
                     <td>${article.article_heading}</td>
                     <td>
@@ -55,6 +59,63 @@ More here: https://stackoverflow.com/questions/32653518/django-rest-framework-re
     </div>
     {# ALSO HERE we are using vue js #}
     <div class="loading" v-if="loading===true">Loading&#8230;</div>
+
+{# TODO this HAS TO BE inside #starting in order to be processed by vue.js #}
+    <div class="modal fade" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">ADD ARTICLE</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                  {% comment %}TODO this here means that you are executing the addArticle method but you are NOT actually submitting
+                  which makes the form redundant unless you need a way to support both old fashioned form code and ajax forms{% endcomment %}
+                <form v-on:submit.prevent="addArticle()">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="article_heading">Article Heading</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="article_heading"
+                        placeholder="Enter Article Heading"
+
+                        {# ALSO HERE we are using vue js #}
+{#                        see here that the instance has been predefined, it is not created when we would expect#}
+                        v-model="new_article.article_heading"
+
+                        required="required" >
+                    </div>
+                    <div class="form-group">
+                      <label for="article_body">Article Body</label>
+                      <textarea
+                        class="form-control"
+                        id="article_body"
+                        placeholder="Enter Article Body"
+
+                        {# ALSO HERE we are using vue js #}
+                        v-model="new_article.article_body"
+
+                        required="required"
+                        rows="3"></textarea>
+                    </div>
+                </div>
+                    {# ALSO HERE we are using vue js #}
+                    <p>${new_article.article_heading}</p>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+              </div>
+            </div>
+           <div class="loading" v-if="loading===true">Loading&#8230;</div>
+          </div>
+          <!-- End of article modal -->
 </div>
 
 {#keep vue script at the bottom#}

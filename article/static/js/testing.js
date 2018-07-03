@@ -41,7 +41,7 @@ var vv = new Vue({
         },
         addArticle: function () {
             this.loading = true;
-            this.$http.post('/article-api/article/', this.newArticle).then(function (response) {
+            this.$http.post('/article-api/article/', this.new_article).then(function (response) {
                 this.loading = false;
                 this.getArticles();
             }).catch(function (err) {
