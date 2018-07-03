@@ -116,6 +116,62 @@ More here: https://stackoverflow.com/questions/32653518/django-rest-framework-re
            <div class="loading" v-if="loading===true">Loading&#8230;</div>
           </div>
           <!-- End of article modal -->
+
+        <div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">EDIT ARTICLE</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                  {# ALSO HERE we are using vue js #}
+                <form v-on:submit.prevent="updateArticle()">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="article_heading">Article Heading</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="article_heading"
+                        placeholder="Enter Article Heading"
+
+                        {# ALSO HERE we are using vue js #}
+                        v-model="cur_article.article_heading"
+
+                        required="required" >
+                    </div>
+                    <div class="form-group">
+                      <label for="article_body">Article Body</label>
+                      <textarea
+                        class="form-control"
+                        id="article_body"
+                        placeholder="Enter Article Body"
+
+                        {# ALSO HERE we are using vue js #}
+                        v-model="cur_article.article_body"
+
+
+                        required="required"
+                        rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary m-progress" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+              </div>
+            </div>
+
+            {# ALSO HERE we are using vue js #}
+            <div class="loading" v-if="loading===true">Loading&#8230;</div>
+
+          </div>
+          <!-- End of edit article modal -->
 </div>
 
 {#keep vue script at the bottom#}

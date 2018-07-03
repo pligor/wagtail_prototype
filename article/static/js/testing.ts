@@ -1,4 +1,4 @@
-/// <reference path="node_modules/vue/types/vue.d.ts"/>
+/// <reference path="../../../node_modules/vue/types/vue.d.ts"/>
 // import Vue from "vue";
 
 let vv = new Vue({
@@ -33,7 +33,8 @@ let vv = new Vue({
         getArticle: function(id: any) {
             this.loading = true;
             this.$http.get('/article-api/article/' + id + '/').then(function (response: any) {
-                this.cur_article = response.data
+                this.cur_article = response.data;
+                $("#editArticleModal").modal('show');
                 this.loading = false;
             }).catch(function (err: any) {
                 this.loading = false;
@@ -76,6 +77,6 @@ let vv = new Vue({
                 this.loading = false;
                 console.log(err)
             })
-        }
+        },
     }
 });

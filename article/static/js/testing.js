@@ -1,5 +1,5 @@
 "use strict";
-/// <reference path="node_modules/vue/types/vue.d.ts"/>
+/// <reference path="../../../node_modules/vue/types/vue.d.ts"/>
 // import Vue from "vue";
 var vv = new Vue({
     el: '#starting',
@@ -33,6 +33,7 @@ var vv = new Vue({
             this.loading = true;
             this.$http.get('/article-api/article/' + id + '/').then(function (response) {
                 this.cur_article = response.data;
+                $("#editArticleModal").modal('show');
                 this.loading = false;
             }).catch(function (err) {
                 this.loading = false;
@@ -71,7 +72,7 @@ var vv = new Vue({
                 this.loading = false;
                 console.log(err);
             });
-        }
+        },
     }
 });
 //# sourceMappingURL=testing.js.map
