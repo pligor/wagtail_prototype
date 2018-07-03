@@ -41,14 +41,15 @@ except NameError:
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         # these permissions are followed one layer at a time as you see the order here
-        'rest_framework.permissions.IsAuthenticated',
+        #TODO uncomment for auth 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
 
     "DEFAULT_AUTHENTICATION_CLASSES": [
         'keystone_auth.keystone_rest_auth.KeystoneRestAuthentication',
         "rest_framework.authentication.TokenAuthentication",  # http header is required here, HTTP_AUTHORIZATION
-        "rest_framework.authentication.SessionAuthentication",  # default one, useful to devs
+        #TODO uncomment for auth "rest_framework.authentication.SessionAuthentication",  # default one, useful to devs
     ]
 }
 

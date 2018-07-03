@@ -1,5 +1,5 @@
 /// <reference path="node_modules/vue/types/vue.d.ts"/>
-import Vue from "vue";
+// import Vue from "vue";
 
 let vv = new Vue({
     el: '#starting', //the id in the body we need it to run
@@ -30,7 +30,7 @@ let vv = new Vue({
             })
         },
 
-        getArticle: function(id) {
+        getArticle: function(id: any) {
             this.loading = true;
             this.$http.get('/article-api/article/' + id + '/').then(function (response: any) {
                 this.cur_article = response.data
@@ -65,9 +65,11 @@ let vv = new Vue({
             })
         },
 
-        deleteArticle: function(id) {
+        deleteArticle: function(id: any) {
             this.loading = true;
-            this.$http.delete('/article-api/article/' + id + '/').then(function(response: any) {
+            let url_to_delete = '/article-api/article/' + id + '/';
+            console.log(url_to_delete)
+            this.$http.delete(url_to_delete).then(function(response: any) {
                 this.loading = false;
                 this.getArticles();
             }).catch(function (err: any) {

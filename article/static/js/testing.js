@@ -1,5 +1,6 @@
+"use strict";
 /// <reference path="node_modules/vue/types/vue.d.ts"/>
-import Vue from "vue";
+// import Vue from "vue";
 var vv = new Vue({
     el: '#starting',
     delimiters: ['${', '}'],
@@ -61,7 +62,9 @@ var vv = new Vue({
         },
         deleteArticle: function (id) {
             this.loading = true;
-            this.$http.delete('/article-api/article/' + id + '/').then(function (response) {
+            var url_to_delete = '/article-api/article/' + id + '/';
+            console.log(url_to_delete);
+            this.$http.delete(url_to_delete).then(function (response) {
                 this.loading = false;
                 this.getArticles();
             }).catch(function (err) {
