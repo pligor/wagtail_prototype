@@ -1,0 +1,31 @@
+{% extends "wagtailapp/blogbase.html" %}
+
+{# The app that contains the custom tags must be in INSTALLED_APPS in order for the {% load %} tag to work. #}
+{% load wagtailcore_tags demo_tags %} {# separated by space #}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+  <h1>Vue.js power - {{ page.title }}</h1>
+
+  <div class="intro">{{ page.intro|richtext }}</div>
+
+    <div>
+    edw ta kala adverts apo thn selida {{ page.title }}:<br/>
+    {% adverts page.get_advertisements %}
+    </div>
+
+  {#    {% for blogpost_instance in page.get_children.live %}#}
+  {#    {% for blogpost_instance in page.get_children %}#}
+  {#  {% debug %}#}
+    <h2>Blog instances (Ideally we would like to click them and underneath get the content of the blog page)</h2>
+  {% for blogpost_instance in page.specific.get_published_rev_order %}
+    {% with blogpost=blogpost_instance.specific %}
+      <h3>{{ blogpost.title }}</h3>
+      {#      the two lines above are identical#}
+      {{ blogpost.intro }}
+    {% endwith %}
+  {% endfor %}
+
+
+{% endblock %}

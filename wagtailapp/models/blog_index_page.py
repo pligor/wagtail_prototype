@@ -9,6 +9,8 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
+    template = 'wagtailapp/blog_index_inline.html'
+
     # from .ad_blog_rel import AdvertBlogPageIndexRelationship
     # from .advert_snippet import AdvertSnippet
     # its_ads = models.ManyToManyField(AdvertSnippet, through=AdvertBlogPageIndexRelationship)
