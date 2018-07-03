@@ -1,0 +1,15 @@
+{
+    //take into account recommended options for Vue.js: https://vuejs.org/v2/guide/typescript.html
+    "compilerOptions": {
+        //"outDir": "./built/", do NOT define an output dir because we prefer
+        "sourceMap": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "module": "es2015",
+        "moduleResolution": "node",
+        "target": "es5"
+    },
+    "include": [
+        "./**/*"
+    ]
+}
