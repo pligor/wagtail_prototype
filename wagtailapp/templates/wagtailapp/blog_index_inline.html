@@ -21,8 +21,11 @@
 
     {% for blogpost_instance in page.specific.get_published_rev_order %}
         {% with blogpost=blogpost_instance.specific %}
-            <h3><a style="text-decoration: underline; cursor: pointer;"
-                   v-on:click="load_blog_page('{{ blogpost.url }}')">{{ blogpost.title }}</a></h3>
+            <bloglink blogposturl="{{ blogpost.url }}" blogposttitle="{{ blogpost.title }}" ></bloglink>
+
+{#            <h3><a style="text-decoration: underline; cursor: pointer;"#}
+{#                   v-on:click="load_blog_page('{{ blogpost.url }}')">{{ blogpost.title }}</a></h3>#}
+
             {{ blogpost.intro }}
         {% endwith %}
     {% endfor %}
