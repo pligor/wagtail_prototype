@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Vue js Django Crud app</title>
@@ -28,8 +28,40 @@
 More here: https://stackoverflow.com/questions/32653518/django-rest-framework-returning-403-response-on-post-put-delete-despite-allowa{% endcomment %}
 
 <div id="app">
-    ${message}
+    <p>${message}</p>
+
+    {# TODO https://vuejs.org/v2/guide/transitions.html if you want to be more fancy #}
+
+    {#    directives#}
+    <p><span v-bind:title="mytitle">Hover over me</span></p>
+
+    {#    this changes the structure of the DOM#}
+    <p v-if="seen===true">You can<span v-if="seen===false">not</span> see me</p>
+
+    <ul>
+        <li v-for="todo in todos">
+            ${todo}
+        </li>
+    </ul>
+
+    <button class="btn" v-on:click="add_curses(2)">add curses to your message above</button>
+
+    <div>
+        {#    use vue js with form elements#}
+        <input type="text" v-model="message"/>
+    </div>
+
+{#    have some static items#}
+    <div>
+        <static-item></static-item>
+    </div>
+
+    <ol>
+{#        this accepts also functions which is great#}
+        <parametric v-for="num_todo in get_numbered_todos()" v-bind:param1="num_todo.key" v-bind:param2="num_todo.val"></parametric>
+    </ol>
 </div>
+
 
 {#keep vue script at the bottom#}
 <script src="{% static 'js/tutorial.js' %}" type="text/javascript"></script>
