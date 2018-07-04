@@ -10,4 +10,5 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^frontpage//{0,1}$', TemplateView.as_view(template_name='article/index.html')),
+    url(r'^vuetut//{0,1}$', TemplateView.as_view(template_name='article/tutorial.html')),
 ]

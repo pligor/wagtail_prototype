@@ -20,7 +20,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
 from .views import some_blogs, redirect_to_my_auth
 
-
+from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^cms/login', redirect_to_my_auth, name="wagtailadmin_login"),  # admin interface for wagtail
