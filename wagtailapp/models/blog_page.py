@@ -92,6 +92,11 @@ class BlogPage(Page):
     def get_context(self, request, *args, **kwargs):
         return super().get_context(request, *args, **kwargs)
 
+    def serve(self, request, *args, **kwargs):
+        #print("THIS IS BEING CALLED WITH EVERY BLOG PAGE REQUEST ?")
+        #TODO you might need to work with this if you need more granularity of control: https://groups.google.com/forum/#!topic/wagtail/O9sMTnVYueQ
+        return super().serve(request, *args, **kwargs)
+
 
 class BlogPageGalleryImage(Orderable):
     # A ParentalKey works similarly to a ForeignKey, but also defines BlogPageGalleryImage
