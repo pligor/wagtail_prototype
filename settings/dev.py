@@ -74,7 +74,10 @@ KEYSTONE_TOKEN_KEY = "keystone_token"
 
 # LOGIN_URL_PATH_EXEMPT_FROM_AUTH = '/tasks_mngr/conn' #avoid hardcoded urls
 LOGIN_URL_PATH_EXEMPT_FROM_AUTH = 'tasks_manager:conn'
-WAGTAIL_FRONTEND_LOGIN_URL = '/tasks_mngr/conn'
+
+#Select only one of the two below. More here: http://docs.wagtail.io/en/v2.1.1/advanced_topics/privacy.html
+#WAGTAIL_FRONTEND_LOGIN_URL = '/tasks_mngr/conn'
+WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'wagtailapp/login_required_flag.html' #make sure this page is clean, no html formatting
 
 # LOGIN_REDIRECT_URL = 'tasks_manager:conn'
 
@@ -87,7 +90,7 @@ TEMPLATES[0]['OPTIONS']['libraries'] = {
     'demo_tags': 'wagtailapp.templatetags.demo_tags'
 }
 
-IS_SINGLE_PAGE_APP = False
+IS_SINGLE_PAGE_APP = True
 
 try:
     from .local_settings import *

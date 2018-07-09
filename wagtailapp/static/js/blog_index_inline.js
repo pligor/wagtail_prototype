@@ -7,7 +7,16 @@ Vue.component('bloglink', {
         load_blog_page: function (blogpost_url) {
             console.log('component here');
             console.log(blogpost_url);
-            this.$parent.load_blog_page(blogpost_url);
+            this.$parent.load_blog_page(blogpost_url, function (data) {
+                if (data.indexOf('WAGTAIL_LOGIN_REQUIRED_FLAG') != -1) {
+                    //console.log("yes!!!! it is found");
+                    //console.log(window.location.pathname);
+                    window.location.href = '/tasks_mngr/conn?next=' + window.location.pathname;
+                }
+                else {
+                    return data;
+                }
+            });
         }
     }
 });
@@ -25,14 +34,15 @@ var article = new Vue({
         this.loaded_content = this.placeholder_content;
     },
     methods: {
-        load_blog_page: function (blogpost_url) {
-            console.log('parent here');
+        load_blog_page: function (blogpost_url, data_processor) {
+            //console.log('parent here');
+            if (data_processor === void 0) { data_processor = function (data) { return data; }; }
             this.loading = true;
             this.$http.get(blogpost_url).then(function (response) {
                 //this.cur_article = response.data;
-                console.log("RESPONSE");
+                console.log("RESPONSE!");
                 console.log(response.data);
-                this.loaded_content = response.data;
+                this.loaded_content = data_processor(response.data);
                 this.loading = false;
             }).catch(function (err) {
                 this.loading = false;
