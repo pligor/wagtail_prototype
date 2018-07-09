@@ -143,7 +143,7 @@ STATIC_URL = '/static/'
 # print('STATICFILES_DIRS')
 # print(STATICFILES_DIRS)
 
-LOGIN_URL = "conn"  # this is the name of the login page
+LOGIN_URL = "tasks_manager:conn"  # this is the name of the login page
 
 # A module is meant to be under the Python path if you can run Python and import that module.
 # One of the ways to put a module under the Python path is to modify the sys.path variable
