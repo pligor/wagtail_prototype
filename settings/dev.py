@@ -87,6 +87,8 @@ TEMPLATES[0]['OPTIONS']['libraries'] = {
     'demo_tags': 'wagtailapp.templatetags.demo_tags'
 }
 
+IS_SINGLE_PAGE_APP = False
+
 try:
     from .local_settings import *
 except:

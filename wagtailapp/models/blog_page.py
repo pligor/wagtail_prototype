@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.conf import settings
 
 from wagtail.core.fields import RichTextField
 from wagtail.search import index
@@ -24,8 +25,7 @@ class BlogPageTag(TaggedItemBase):
 
 
 class BlogPage(Page):
-    #template = 'wagtailapp/blog_page.html'
-    template = 'wagtailapp/blog_page_inline.html'
+    template = 'wagtailapp/blog_page_inline.html' if settings.IS_SINGLE_PAGE_APP else 'wagtailapp/blog_page.html'
     # TODO we only need to change the template
 
     date = models.DateField("Post date")

@@ -4,14 +4,13 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from django.db import models
 from wagtail.core.models import Orderable
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-
+from django.conf import settings
 
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
-    # template = 'wagtailapp/blog_index_page.html'
-    template = 'wagtailapp/blog_index_inline.html'
-    # TODO we only need to change the template
+    # TODO mainly we only need to change the template for vue.js
+    template = 'wagtailapp/blog_index_inline.html' if settings.IS_SINGLE_PAGE_APP else 'wagtailapp/blog_index_page.html'
 
     # from .ad_blog_rel import AdvertBlogPageIndexRelationship
     # from .advert_snippet import AdvertSnippet
