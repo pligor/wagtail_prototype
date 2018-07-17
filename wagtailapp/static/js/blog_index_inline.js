@@ -35,10 +35,15 @@ var article = new Vue({
     },
     methods: {
         load_blog_page: function (blogpost_url, data_processor) {
-            //console.log('parent here');
             if (data_processor === void 0) { data_processor = function (data) { return data; }; }
+            //console.log('parent here');
+            //let target_url = blogpost_url + (blogpost_url.indexOf('?') >= 0 ? '&' : '?') + "origin=vuejs";
             this.loading = true;
-            this.$http.get(blogpost_url).then(function (response) {
+            this.$http.get(blogpost_url, {
+                headers: {
+                    "request_agent": "vuejs"
+                }
+            }).then(function (response) {
                 //this.cur_article = response.data;
                 console.log("RESPONSE!");
                 console.log(response.data);

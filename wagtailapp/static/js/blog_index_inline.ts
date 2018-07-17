@@ -39,10 +39,14 @@ let article = new Vue({
     methods: {
         load_blog_page: function(blogpost_url: string, data_processor: (data: string) => string = (data) => data) {
             //console.log('parent here');
-
+            //let target_url = blogpost_url + (blogpost_url.indexOf('?') >= 0 ? '&' : '?') + "origin=vuejs";
             this.loading = true;
 
-            this.$http.get(blogpost_url).then(function (response: any) {
+            this.$http.get(blogpost_url, {
+                headers: {
+                    "request_agent": "vuejs"
+                }
+            }).then(function (response: any) {
                 //this.cur_article = response.data;
                 console.log("RESPONSE!");
                 console.log(response.data);
