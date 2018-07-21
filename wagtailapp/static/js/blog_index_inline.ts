@@ -24,6 +24,7 @@ Vue.component('bloglink', {
 });
 
 let article = new Vue({
+    router,
     el: 'article', //the id in the body we need it to run
     delimiters: ['${', '}'], // delimiters are the tags which we apply around the vue js variables to display data in html file
     data: {

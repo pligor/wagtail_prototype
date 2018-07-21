@@ -21,6 +21,7 @@ Vue.component('bloglink', {
     }
 });
 var article = new Vue({
+    router: router,
     el: 'article',
     delimiters: ['${', '}'],
     data: {
