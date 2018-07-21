@@ -2,7 +2,8 @@
 /// <reference path="../../../node_modules/vue/types/vue.d.ts"/>
 Vue.component('bloglink', {
     props: ['blogposturl', 'blogposttitle'],
-    template: '<h3><i><a style="text-decoration: underline; cursor: pointer;" v-on:click="load_blog_page(blogposturl)">{{blogposttitle}}</a></i></h3>',
+    template: '<h3><i><a v-bind:href="blogposturl" style="text-decoration: underline; cursor: pointer;" ' +
+        'v-on:click.prevent="load_blog_page(blogposturl)">{{blogposttitle}}</a></i></h3>',
     methods: {
         load_blog_page: function (blogpost_url) {
             console.log('component here');
