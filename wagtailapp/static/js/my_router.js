@@ -1,9 +1,25 @@
 "use strict";
-var Foo = { template: '<div>foo</div>' };
-var Bar = { template: '<div>bar</div>' };
+//full feldged component
+var Foo = Vue.component('foocomp', {
+    template: '<div>foo here</div>',
+});
+//short version of a component
+var Bar = { template: '<div>bar here</div>' };
 var routes = [
-    { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar }
+    {
+        path: '/',
+        component: {
+            template: '<div>(empty at route)</div>'
+        }
+    },
+    {
+        path: '/foo',
+        component: Foo
+    },
+    {
+        path: '/bar',
+        component: Bar
+    },
 ];
 var router = new VueRouter({
     routes: routes
