@@ -21,6 +21,32 @@ Vue.component('bloglink', {
         }
     }
 });
+var blog_page_comp = Vue.component('blogpagecomp', {
+    template: '<div v-html="loaded_content"></div>',
+    data: function () {
+        return {
+            loaded_content: 'fsfw',
+        };
+    },
+    mounted: function () {
+        console.log("here is the route that you requested: " + this.$route.params.wagtailpageroute);
+    },
+});
+var routes = [
+    {
+        path: '/',
+        component: {
+            template: '<div>(here the blogpage will be loaded! most likely most of the times)</div>'
+        },
+    },
+    {
+        path: '/:wagtailpageroute',
+        component: blog_page_comp,
+    },
+];
+var router = new VueRouter({
+    routes: routes
+});
 var article = new Vue({
     router: router,
     el: 'article',
@@ -28,12 +54,10 @@ var article = new Vue({
     data: {
         loading: false,
         my_target_div: '#blogpage',
-        loaded_content: null,
-        placeholder_content: '(here the blogpage will be loaded!)'
     },
     mounted: function () {
         //things you want to happen at the beginning
-        this.loaded_content = this.placeholder_content;
+        //this.loaded_content = this.placeholder_content
     },
     methods: {
         load_blog_page: function (blogpost_url, data_processor) {

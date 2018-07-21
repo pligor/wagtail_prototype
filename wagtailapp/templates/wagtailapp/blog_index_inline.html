@@ -19,14 +19,14 @@
 
     {# this router link thing is something special possibly provided by vuejs router #}
 {#    `<router-link>` will be rendered as an `<a>` tag by default #}
-    <router-link to="/foo">Go to Foo</router-link>
+    {% comment %}<router-link to="/foo">Go to Foo</router-link>
     <br/>
     <router-link to="/bar">Go to Bar</router-link>
     <br/>
 
     {#  This is only if you have one and only one thing  #}
     <router-view></router-view>
-    <br/>
+    <br/>{% endcomment %}
 
     <h2>Blog instances (Ideally we would like to click them and underneath get the content of the blog page)</h2>
 
@@ -42,7 +42,8 @@
     <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <br/>
     <h1>BLOG POST BELOW</h1>
-    <div v-html="loaded_content"></div>
+{#    <div v-html="loaded_content"></div>#}
+    <router-view></router-view>
 
 {% endblock %}
 
