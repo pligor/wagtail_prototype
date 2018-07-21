@@ -33,9 +33,18 @@ let blog_page_comp = Vue.component('blogpagecomp', {
         }
     },
     mounted: function () {
-        console.log("here is the route that you requested: " + this.$route.params.wagtailpageroute)
-        let blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute
+        console.log("here is the route that you requested: " + this.$route.params.wagtailpageroute);
+        let blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute;
         this.load_blog_page(blogpost_url)
+    },
+    beforeRouteUpdate: function(to: any, from: any, next: any) {
+        console.log("reacting to route changes");
+        //console.log(to);
+        //console.log(from);
+        this.load_blog_page(to.path);
+    // react to route changes...
+    // don't forget to call next()
+        next()
     },
     methods: {
         load_blog_page: function (blogpost_url: string) {
@@ -52,7 +61,7 @@ let blog_page_comp = Vue.component('blogpagecomp', {
                     return data
                 }
             })
-        }
+        },
     }
 });
 
