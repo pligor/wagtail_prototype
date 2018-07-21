@@ -8,7 +8,7 @@ Vue.component('bloglink', {
     template: '<h3><i><router-link v-bind:to="blogposturl">{{blogposttitle}}</router-link></i></h3>',
     methods: {
         load_blog_page: function (blogpost_url: string) {
-            console.log('component here');
+            console.log('bloglink component here');
             console.log(blogpost_url);
 
             this.$parent.load_blog_page(blogpost_url, (data: string) => {
@@ -34,7 +34,26 @@ let blog_page_comp = Vue.component('blogpagecomp', {
     },
     mounted: function () {
         console.log("here is the route that you requested: " + this.$route.params.wagtailpageroute)
+        let blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute
+        this.load_blog_page(blogpost_url)
     },
+    methods: {
+        load_blog_page: function (blogpost_url: string) {
+            console.log('blogpagecomp component here');
+            console.log(blogpost_url);
+
+            this.$parent.load_blog_page(blogpost_url, (data: string) => {
+                if (data.indexOf('WAGTAIL_LOGIN_REQUIRED_FLAG') != -1) {
+                    //console.log("yes!!!! it is found");
+                    //console.log(window.location.pathname);
+                    window.location.href = '/tasks_mngr/conn?next=' + window.location.pathname;
+                } else {
+                    this.loaded_content = data;
+                    return data
+                }
+            })
+        }
+    }
 });
 
 //full feldged component
@@ -101,7 +120,8 @@ let article = new Vue({
                 console.log("RESPONSE!");
                 console.log(response.data);
 
-                this.loaded_content = data_processor(response.data);
+                 let final_data = data_processor(response.data);
+                 //this.loaded_content = final_data;
 
                 this.loading = false;
             }).catch(function (err: any) {

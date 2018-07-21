@@ -6,7 +6,7 @@ Vue.component('bloglink', {
     template: '<h3><i><router-link v-bind:to="blogposturl">{{blogposttitle}}</router-link></i></h3>',
     methods: {
         load_blog_page: function (blogpost_url) {
-            console.log('component here');
+            console.log('bloglink component here');
             console.log(blogpost_url);
             this.$parent.load_blog_page(blogpost_url, function (data) {
                 if (data.indexOf('WAGTAIL_LOGIN_REQUIRED_FLAG') != -1) {
@@ -30,7 +30,27 @@ var blog_page_comp = Vue.component('blogpagecomp', {
     },
     mounted: function () {
         console.log("here is the route that you requested: " + this.$route.params.wagtailpageroute);
+        var blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute;
+        this.load_blog_page(blogpost_url);
     },
+    methods: {
+        load_blog_page: function (blogpost_url) {
+            var _this = this;
+            console.log('blogpagecomp component here');
+            console.log(blogpost_url);
+            this.$parent.load_blog_page(blogpost_url, function (data) {
+                if (data.indexOf('WAGTAIL_LOGIN_REQUIRED_FLAG') != -1) {
+                    //console.log("yes!!!! it is found");
+                    //console.log(window.location.pathname);
+                    window.location.href = '/tasks_mngr/conn?next=' + window.location.pathname;
+                }
+                else {
+                    _this.loaded_content = data;
+                    return data;
+                }
+            });
+        }
+    }
 });
 //full feldged component
 var Foo = Vue.component('foocomp', {
@@ -87,7 +107,8 @@ var article = new Vue({
                 //this.cur_article = response.data;
                 console.log("RESPONSE!");
                 console.log(response.data);
-                this.loaded_content = data_processor(response.data);
+                var final_data = data_processor(response.data);
+                //this.loaded_content = final_data;
                 this.loading = false;
             }).catch(function (err) {
                 this.loading = false;
