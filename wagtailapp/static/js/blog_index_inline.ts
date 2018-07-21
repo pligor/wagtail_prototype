@@ -4,8 +4,8 @@ declare var Vue;
 
 Vue.component('bloglink', {
     props: ['blogposturl', 'blogposttitle'],
-    template: '<h3><i><a v-bind:href="blogposturl" style="text-decoration: underline; cursor: pointer;" ' +
-    'v-on:click.prevent="load_blog_page(blogposturl)">{{blogposttitle}}</a></i></h3>',
+    // template: '<h3><i><a v-bind:href="blogposturl" v-on:click.prevent="load_blog_page(blogposturl)">{{blogposttitle}}</a></i></h3>',
+    template: '<h3><i><router-link v-bind:to="blogposturl">{{blogposttitle}}</router-link></i></h3>',
     methods: {
         load_blog_page: function (blogpost_url: string) {
             console.log('component here');
@@ -29,13 +29,22 @@ let blog_page_comp = Vue.component('blogpagecomp', {
     template: '<div v-html="loaded_content"></div>',
     data: function () {
         return {
-            loaded_content: 'fsfw',
+            loaded_content: '(blogpage NOT found)',
         }
     },
     mounted: function () {
         console.log("here is the route that you requested: " + this.$route.params.wagtailpageroute)
     },
 });
+
+//full feldged component
+const Foo = Vue.component('foocomp', {
+    template: '<div>foo here</div>',
+});
+
+//short version of a component
+const Bar = {template: '<div>bar here</div>'};
+
 
 const routes = [
     {
@@ -45,17 +54,17 @@ const routes = [
         },
     },
     {
-        path: '/:wagtailpageroute',
-        component: blog_page_comp,
-    },
-    /*{
         path: '/foo',
         component: Foo
     },
     {
         path: '/bar',
         component: Bar
-    },*/
+    },
+    {
+        path: '/wagtailapp/:wagtailpageroute',
+        component: blog_page_comp,
+    },
 ];
 
 const router = new VueRouter({
