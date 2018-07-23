@@ -43,8 +43,10 @@
     <h1>BLOG POST BELOW</h1>
 {#    <div v-html="loaded_content"></div>#}
 {#    <router-view name="namedone"></router-view>#}
-    <router-view>
-        <div id="blog_main_view"><p>Edw kai kala einai to default blog</p></div>
+    <router-view id="blog_main_view">
+{#    <div id="blog_main_view">#}
+        <p>Edw kai kala einai to default blog</p>
+{#    </div>#}
     </router-view>
 
 {% endblock %}
