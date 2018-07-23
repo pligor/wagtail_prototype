@@ -1,6 +1,7 @@
 /// <reference path="../../../node_modules/vue/types/vue.d.ts"/>
 // import Vue from "vue";
-declare var Vue;
+declare var Vue: any;
+declare var $: any;
 
 Vue.component('bloglink', {
     props: ['blogposturl', 'blogposttitle'],
@@ -26,16 +27,22 @@ Vue.component('bloglink', {
 
 
 let blog_page_comp = Vue.component('blogpagecomp', {
+    //v-html="loaded_content"
     template: '<div v-html="loaded_content"></div>',
     data: function () {
         return {
-            loaded_content: '(blogpage NOT found)',
+            //loaded_content: '(blogpage NOT found)',
+            loaded_content: $('#blog_main_view').html(),
         }
     },
     mounted: function () {
         console.log("here is the route that you requested: " + this.$route.params.wagtailpageroute);
-        let blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute;
-        this.load_blog_page(blogpost_url)
+        //let blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute;
+        //this.load_blog_page(blogpost_url)
+        //console.log(this.$slots.default[0]);
+        //this.loaded_content = 'aaaaa';
+        //this.$el.attr('malakas', 'eisai');
+        //console.log(this.$el);
     },
     beforeRouteUpdate: function (to: any, from: any, next: any) {
         console.log("reacting to route changes");
@@ -79,7 +86,7 @@ const routes = [
         path: '/',
         components: {
             default: {
-                template: '<div>(here the blogpage will be loaded! most likely most of the times)<br/><slot></slot></div>'
+                template: '<div>!!!This is not what you want to see here, use a real root</div>'
             }
         },
     },
