@@ -37,8 +37,12 @@ let blog_page_comp = Vue.component('blogpagecomp', {
     },
     mounted: function () {
         console.log("here is the route that you requested: " + this.$route.params.wagtailpageroute);
-        let blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute;
-        this.load_blog_page(blogpost_url) //TODO this should not be called when using hashbang
+        if (this.$route.params.wagtailpageroute) {
+            let blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute;
+            this.load_blog_page(blogpost_url);
+        } else {
+            console.log("at default route")
+        }
         //console.log(this.$slots.default[0]);
         //this.loaded_content = 'aaaaa';
         //this.$el.attr('malakas', 'eisai');
@@ -82,14 +86,14 @@ const Bar = {template: '<div>bar here</div>'};
 
 
 const routes = [
-    {
+    /*{
         path: '/wagtailapp/',
         components: {
             default: {
                 template: '<div>!!!This is not what you want to see here, use a real root</div>'
             }
         },
-    },
+    },*/
     {
         path: '/wagtailapp/cms*',
         component: Foo
@@ -107,7 +111,7 @@ const routes = [
         component: Bar
     },
     {
-        path: '/wagtailapp/:wagtailpageroute',
+        path: '/wagtailapp/:wagtailpageroute*',
         components: {
             default: blog_page_comp,
             //namedone: blog_page_comp,
