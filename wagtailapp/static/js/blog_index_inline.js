@@ -83,11 +83,19 @@ var routes = [
         },
     },
     {
-        path: '/foo',
+        path: '/wagtailapp/cms*',
         component: Foo
     },
     {
-        path: '/bar',
+        path: '/wagtailapp/documents*',
+        component: Foo
+    },
+    {
+        path: '/wagtailapp/some_blogs*',
+        component: Foo
+    },
+    {
+        path: '/wagtailapp/documents*',
         component: Bar
     },
     {
