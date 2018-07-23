@@ -70,8 +70,10 @@ var Bar = { template: '<div>bar here</div>' };
 var routes = [
     {
         path: '/',
-        component: {
-            template: '<div>(here the blogpage will be loaded! most likely most of the times)</div>'
+        components: {
+            default: {
+                template: '<div>(here the blogpage will be loaded! most likely most of the times)<br/><slot></slot></div>'
+            }
         },
     },
     {
@@ -84,7 +86,9 @@ var routes = [
     },
     {
         path: '/wagtailapp/:wagtailpageroute',
-        component: blog_page_comp,
+        components: {
+            default: blog_page_comp,
+        },
     },
 ];
 var router = new VueRouter({

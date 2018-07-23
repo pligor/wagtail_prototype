@@ -37,13 +37,13 @@ let blog_page_comp = Vue.component('blogpagecomp', {
         let blogpost_url = '/wagtailapp/' + this.$route.params.wagtailpageroute;
         this.load_blog_page(blogpost_url)
     },
-    beforeRouteUpdate: function(to: any, from: any, next: any) {
+    beforeRouteUpdate: function (to: any, from: any, next: any) {
         console.log("reacting to route changes");
         //console.log(to);
         //console.log(from);
         this.load_blog_page(to.path);
-    // react to route changes...
-    // don't forget to call next()
+        // react to route changes...
+        // don't forget to call next()
         next()
     },
     methods: {
@@ -77,8 +77,10 @@ const Bar = {template: '<div>bar here</div>'};
 const routes = [
     {
         path: '/',
-        component: {
-            template: '<div>(here the blogpage will be loaded! most likely most of the times)</div>'
+        components: {
+            default: {
+                template: '<div>(here the blogpage will be loaded! most likely most of the times)<br/><slot></slot></div>'
+            }
         },
     },
     {
@@ -91,7 +93,10 @@ const routes = [
     },
     {
         path: '/wagtailapp/:wagtailpageroute',
-        component: blog_page_comp,
+        components: {
+            default: blog_page_comp,
+            //namedone: blog_page_comp,
+        },
     },
 ];
 
@@ -129,8 +134,8 @@ let article = new Vue({
                 console.log("RESPONSE!");
                 console.log(response.data);
 
-                 let final_data = data_processor(response.data);
-                 //this.loaded_content = final_data;
+                let final_data = data_processor(response.data);
+                //this.loaded_content = final_data;
 
                 this.loading = false;
             }).catch(function (err: any) {
